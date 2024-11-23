@@ -1,0 +1,164 @@
+{
+    "reason": "succ",
+    "code": 200,
+    "data": {
+        "normalBooksInfo": [
+            {
+                "cover": "https://nos.netease.com/ydschool-online/1496632727200CET4luan_1.jpg",
+                "bookOrigin": {
+                    "originUrl": "",
+                    "desc": "来源于",
+                    "originName": "有道考神团队"
+                },
+                "size": 788457,
+                "introduce": "有道超强词频统计，考神团队诚意出品。整合历届大学英语四级真题中出现的所有单词，将3739个四级词汇通过科学的频率算法，筛选至考试必背的1162个核心词汇。搭配背单词近十年真题例句，感受最真实的考试情境，在语境中加深理解。面包君带你用最短的时间考最高的分数！适用于考生备战考试、用户高效学习。",
+                "wordNum": 1162,
+                "reciteUserNum": 875260,
+                "id": "CET4luan_1",
+                "title": "四级真题核心词（图片记忆）",
+                "offlinedata": "http://ydschool-online.nos.netease.com/1523620217431_CET4luan_1.zip",
+                "version": "3",
+                "tags": [
+                    {
+                        "tagName": "四级",
+                        "tagUrl": ""
+                    },
+                    {
+                        "tagName": "有道",
+                        "tagUrl": ""
+                    }
+                ]
+            },
+            {
+                "cover": "https://nos.netease.com/ydschool-online/1496655382926CET6luan_1.jpg",
+                "bookOrigin": {
+                    "originUrl": "",
+                    "desc": "来源于",
+                    "originName": "有道考神团队"
+                },
+                "size": 591417,
+                "introduce": "有道超强词频统计，考神团队诚意出品。整合六级大纲词汇、历届六级真题词汇，排除简单词汇，将历届六级考试中出现的单词，通过科学的频率算法，专业团队的把关，筛选至1228个必背核心词汇，帮助用户在短期内实现六级词汇量的突破。结合面包记忆法与真题例句提供的真实考试场景，面包君带你用最短的时间搞定六级！适用于考生备战考试，用户高效学习。",
+                "wordNum": 1228,
+                "reciteUserNum": 218418,
+                "id": "CET6luan_1",
+                "title": "六级真题核心词（图片记忆）",
+                "offlinedata": "/src/book/CET6luan_1.json",
+                "version": "3",
+                "tags": [
+                    {
+                        "tagName": "六级",
+                        "tagUrl": ""
+                    },
+                    {
+                        "tagName": "有道",
+                        "tagUrl": ""
+                    }
+                ]
+            },
+            {
+                "cover": "https://nos.netease.com/ydschool-online/1496632762670KaoYanluan_1.jpg",
+                "bookOrigin": {
+                    "originUrl": "",
+                    "desc": "来源于",
+                    "originName": "有道考神团队"
+                },
+                "size": 771889,
+                "introduce": "有道超强词频统计，考神团队诚意出品。严格按照考研英语最新大纲要求，运用科学的统计算法，考神团队深入研究历年真题及考研英语命题规律，对考研英语词汇进行深入地分析和研究，统计真实考试场景下的必背词汇，名师把关剔除简单词汇，将4533个考研词汇通过严格科学的方法筛选至1341个核心词，帮助考生省时省力完成备考！适合考研用户。",
+                "wordNum": 1341,
+                "reciteUserNum": 252505,
+                "id": "KaoYanluan_1",
+                "title": "考研必考词汇",
+                "offlinedata": "/src/book/KaoYanluan_1.json",
+                "version": "3",
+                "tags": [
+                    {
+                        "tagName": "考研",
+                        "tagUrl": ""
+                    },
+                    {
+                        "tagName": "有道",
+                        "tagUrl": ""
+                    }
+                ]
+            },
+            {
+                "cover": "https://nos.netease.com/ydschool-online/youdao_CET4_2.jpg",
+                "bookOrigin": {
+                    "originUrl": "",
+                    "desc": "来源于",
+                    "originName": "有道词典"
+                },
+                "size": 2723074,
+                "introduce": "据教育部最新颁发大学英语课程教学要求制作，四级备考用户基础经典必背词书。整合收录中学基础词汇、四级大纲要求词汇、真题高频词汇、超纲词汇。有道词典提供正版权威词库，名师校编给你最需要的单词释义和例句，配合背单词科学记忆方法，简单有效搞定四级。此书在手，天下我有~适合所有四级备考用户及想夯实英语基础能力的用户。",
+                "wordNum": 3739,
+                "reciteUserNum": 215979,
+                "id": "CET4luan_2",
+                "title": "四级英语词汇",
+                "offlinedata": "/src/book/CET4luan_2.json",
+                "version": "5",
+                "tags": [
+                    {
+                        "tagName": "四级",
+                        "tagUrl": ""
+                    },
+                    {
+                        "tagName": "有道",
+                        "tagUrl": ""
+                    }
+                ]
+            },
+            {
+                "cover": "https://nos.netease.com/ydschool-online/youdao_CET6_2.jpg",
+                "bookOrigin": {
+                    "originUrl": "",
+                    "desc": "来源于",
+                    "originName": "有道词典"
+                },
+                "size": 1111633,
+                "introduce": "据教育部最新颁发大学英语课程教学要求制作，六级备考用户基础经典必背词书。整合收录四级以上的六级大纲要求词汇、真题高频词汇、超纲词汇。有道词典提供正版权威词库，名师校编给你最需要的单词释义，配合背单词科学记忆方法和真题例句的真实考试场景，从现在开始，背单词带你简单有效搞定六级！适合所有六级备考用户。",
+                "wordNum": 2078,
+                "reciteUserNum": 64093,
+                "id": "CET6_2",
+                "title": "六级英语词汇",
+                "offlinedata": "/src/book/CET6_2.json",
+                "version": "4",
+                "tags": [
+                    {
+                        "tagName": "六级",
+                        "tagUrl": ""
+                    },
+                    {
+                        "tagName": "有道",
+                        "tagUrl": ""
+                    }
+                ]
+            },
+            {
+                "cover": "https://nos.netease.com/ydschool-online/youdao_KaoYan_2.jpg",
+                "bookOrigin": {
+                    "originUrl": "",
+                    "desc": "来源于",
+                    "originName": "有道词典"
+                },
+                "size": 2431155,
+                "introduce": "严格根据最新考研英语词汇大纲要求制作，考研备考用户基础经典必背词书。在必考词汇的基础之上，全面兼顾了真实考试场景下所涉及的所有基础词汇、高频词汇。有道词典提供正版权威词库，名师校编给你最需要的单词释义和例句。配合背单词科学记忆方法，面包君陪你一起走完考研之路。背完这本，心里踏实。适合所有考研备考用户。",
+                "wordNum": 4533,
+                "reciteUserNum": 147205,
+                "id": "KaoYan_2",
+                "title": "考研英语词汇",
+                "offlinedata": "/src/book/KaoYan_2.json",
+                "version": "2",
+                "tags": [
+                    {
+                        "tagName": "考研",
+                        "tagUrl": ""
+                    },
+                    {
+                        "tagName": "有道",
+                        "tagUrl": ""
+                    }
+                ]
+            }
+        ]
+    }
+}

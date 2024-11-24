@@ -1,27 +1,63 @@
 :root {
-  // Light theme
-  --primary-color: #007AFF;
-  --background-color: #f5f7fa;
-  --card-background: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  
-  // 交互状态颜色
-  --hover-color: #f0f0f0;
-  --active-color: #e8e8e8;
-}
+  // 明亮主题
+  &[data-theme="light"] {
+    // 主色调 - 使用天空蓝，能提高注意力和创造力
+    --primary-color: #0EA5E9;
+    --primary-light: #38BDF8;
+    --primary-dark: #0284C7;
+    
+    // 背景色 - 使用高对比度但不刺眼的配色
+    --background-color: #F8FAFC;
+    --card-background: #FFFFFF;
+    
+    // 文字颜色 - 提高对比度，减少视觉疲劳
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    
+    // 交互颜色
+    --hover-color: #F1F5F9;
+    --active-color: #E2E8F0;
+    
+    // 强调色 - 用于重要信息突出显示
+    --accent-success: #059669; // 绿色，表示正确/完成
+    --accent-warning: #D97706; // 橙色，表示提醒
+    --accent-info: #6366F1;    // 靛蓝，表示信息
+    --accent-focus: #EC4899;   // 粉色，表示重点
+    
+    // 阴影 - 增强层次感
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  }
 
-[data-theme="dark"] {
-  --primary-color: #0A84FF;
-  --background-color: #1c1c1e;
-  --card-background: #2c2c2e;
-  --text-primary: #ffffff;
-  --text-secondary: #98989f;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
-  
-  --hover-color: #3c3c3e;
-  --active-color: #3a3a3c;
+  // 暗色主题
+  &[data-theme="dark"] {
+    // 主色调 - 使用较亮的蓝色以保持在暗色环境下的可见度
+    --primary-color: #38BDF8;
+    --primary-light: #7DD3FC;
+    --primary-dark: #0EA5E9;
+    
+    // 背景色 - 使用深色但不完全黑的背景，减少眩光
+    --background-color: #0F172A;
+    --card-background: #1E293B;
+    
+    // 文字颜色 - 保持良好对比度
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    
+    // 交互颜色
+    --hover-color: #334155;
+    --active-color: #475569;
+    
+    // 强调色 - 暗色主题下调整亮度
+    --accent-success: #34D399;
+    --accent-warning: #FBBF24;
+    --accent-info: #818CF8;
+    --accent-focus: #F472B6;
+    
+    // 阴影 - 调整暗色主题下的阴影效果
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+    --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+  }
 }
 
 // 全局过渡动画

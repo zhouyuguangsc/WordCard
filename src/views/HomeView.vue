@@ -163,18 +163,23 @@
           @touchstart="handleTouchStart"
           @touchend="handleTouchEnd">
           <div class="word-section">
-            <h2 class="word">{{ currentWord?.headWord || 'Loading...' }}</h2>
-            <div class="phonetic">
-              <span class="uk">UK [{{ currentWord?.content.word.content.ukphone }}]</span>
-              <span class="us">US [{{ currentWord?.content.word.content.usphone }}]</span>
+            <div ref="wordContainerRef" class="word-container">
+              <h2 class="word" :style="{ fontSize: calculateFontSize(currentWord?.headWord || '') }">
+                {{ currentWord?.headWord || 'Loading...' }}
+              </h2>
             </div>
-            <div class="sound-buttons-container">
+            <div class="phonetic-container">
+              <div class="phonetic">
+                <span class="uk">UK [{{ currentWord?.content.word.content.ukphone }}]</span>
+                <span class="divider">·</span>
+                <span class="us">US [{{ currentWord?.content.word.content.usphone }}]</span>
+              </div>
               <div class="sound-buttons">
-                <button class="sound-button" @click="playSound('uk')">
+                <button class="sound-button" @click.stop="playSound('uk')">
                   <Icon icon="ph:speaker-high-bold" width="24" />
                   UK
                 </button>
-                <button class="sound-button" ref="usButton" @click="playSound('us')">
+                <button ref="usButton" class="sound-button" @click.stop="playSound('us')">
                   <Icon icon="ph:speaker-high-bold" width="24" />
                   US
                 </button>
@@ -347,7 +352,7 @@ const loadBookList = async () => {
     let remoteBooks = []
     try {
       // 使用配置文件中的远程词库地址
-      const remoteSource = config.wordbookSources.find(s => !s.enabled)
+      const remoteSource = config.wordbookSources.find(s => s.enabled && !s.local)
       if (remoteSource) {
         const remoteResponse = await fetch(remoteSource.url)
         const remoteData = await remoteResponse.json()
@@ -422,7 +427,7 @@ const loadWords = async (bookPath: string = currentBook.value.path) => {
     if (localData) {
       rawData = localData
     } else {
-      // 如果本地没有，则从远程加载
+      // 如果本地没有，则从远加载
       const response = await fetch(bookPath)
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
@@ -588,7 +593,7 @@ const markUserInteraction = () => {
 
 // 添加闭词库列表的处理数
 const closeBookList = (e: MouseEvent) => {
-  // 检查点击是否在词��列表和切换按钮之外
+  // 检查点击是否在词列表和切换按钮之外
   const target = e.target as HTMLElement
   if (!target.closest('.book-list') && !target.closest('.book-button')) {
     showBookList.value = false
@@ -748,7 +753,7 @@ const remoteBooks = computed(() =>
 // 添加标签页状态
 const activeTab = ref<'local' | 'remote'>('local')
 
-// 添加获取词库状态的函数
+// 添加获取词库状态的��数
 const getBookStatus = (bookId: string) => {
   const status = bookDownloadStatus.value[bookId]
   if (status?.isDownloading) return 'status-downloading'
@@ -847,6 +852,20 @@ const deleteBook = async (book: typeof bookList[0]) => {
     console.error('删除词库失败:', err)
   }
 }
+
+// 修改字号计算函数
+const calculateFontSize = (word: string) => {
+  const containerWidth = wordCardRef?.value?.offsetWidth || 800  // 容器宽度
+  const minFontSize = 32 // 最小字号
+  const maxFontSize = 64 // 最大字号
+  const averageCharWidth = 0.6 // 假设每个字符平均占用字号的 60%
+  
+  // 计算合适的字号：容器宽度 / (字符数 * 每个字符占用的宽度)
+  const calculatedSize = containerWidth / (word.length * averageCharWidth)
+  
+  // 确保字号在最小值和最大值之间
+  return `${Math.min(Math.max(calculatedSize, minFontSize), maxFontSize)}px`
+}
 </script>
 
 <style lang="scss" scoped>
@@ -875,14 +894,34 @@ const deleteBook = async (book: typeof bookList[0]) => {
   position: relative;
   width: 100%;
   flex: 1;
-  background-color: var(--card-background);
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  padding: 0.5rem;
+  background: linear-gradient(135deg, var(--card-background), var(--hover-color));
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-strong);
+  padding: 1.5rem;
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
+  transition: all 0.3s ease;
+  
+  // 添加微妙的呼吸动画
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at top right,
+      var(--primary-light),
+      transparent 70%
+    );
+    opacity: 0.05;
+    border-radius: inherit;
+    pointer-events: none;
+    animation: breathe 4s ease-in-out infinite;
+  }
 }
 
 .card-controls {
@@ -1089,65 +1128,98 @@ const deleteBook = async (book: typeof bookList[0]) => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 0 1.5rem;
+}
+
+.word-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0.75rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
 }
 
 .word {
-  font-size: 3rem;
-  color: var(--text-primary);
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-info));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-align: center;
-  word-break: break-word;
-  line-height: 1.2;
-  padding: 0 1rem;
-  margin-bottom: 0.5rem;
+  white-space: nowrap;
+  line-height: 1.1;
   font-weight: 700;
-}
-
-.phonetic {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+  padding: 0.25rem 0;
+  transition: transform 0.3s ease;
   
-  .uk, .us {
-    margin: 0 0.75rem;
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
-.sound-buttons-container {
-  position: relative;
-  z-index: 10;
+.phonetic-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: -0.5rem;
+}
+
+.phonetic {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  background-color: var(--hover-color);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  
+  .uk, .us {
+    font-family: 'Fira Code', monospace;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+  
+  .divider {
+    margin: 0 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.5;
+  }
 }
 
 .sound-buttons {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-top: 0.25rem;
 }
 
 .sound-button {
-  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  min-width: 100px;
+  padding: 0.5rem 1rem;
   border-radius: 2rem;
-  color: var(--primary-color);
-  font-size: 1rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
   transition: all 0.2s ease;
-  background-color: var(--card-background);
-  z-index: 20;
   
   &:hover {
-    background-color: var(--hover-color);
     transform: translateY(-2px);
+    filter: brightness(1.1);
   }
   
   &:active {
     transform: translateY(0);
+    filter: brightness(0.9);
   }
 }
 
@@ -1164,12 +1236,19 @@ const deleteBook = async (book: typeof bookList[0]) => {
     align-items: flex-start;
     gap: 1rem;
     margin-bottom: 1rem;
-    padding: 0.75rem 1rem;
-    background-color: var(--hover-color);
-    border-radius: 0.5rem;
+    padding: 1.25rem;
+    background: linear-gradient(to right, var(--hover-color), var(--card-background));
+    border-radius: 1rem;
+    border-left: 4px solid var(--accent-info);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateX(0.5rem);
+      border-left-width: 8px;
+    }
     
     .pos {
-      color: var(--primary-color);
+      color: var(--accent-warning);
       font-style: italic;
       min-width: 2.5rem;
       font-weight: 600;
@@ -1181,7 +1260,6 @@ const deleteBook = async (book: typeof bookList[0]) => {
       line-height: 1.6;
       flex: 1;
       font-weight: 600;
-      word-break: break-word;
     }
   }
 }
@@ -1194,10 +1272,46 @@ const deleteBook = async (book: typeof bookList[0]) => {
   }
   
   .sentence {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    background: linear-gradient(to right, var(--hover-color), var(--card-background));
+    border-radius: 1rem;
+    border-left: 4px solid var(--accent-success);
+    transition: all 0.3s ease;
     
-    &:last-child {
-      margin-bottom: 0;
+    &:hover {
+      transform: translateX(0.5rem);
+      border-left-width: 8px;
+      background: linear-gradient(to right, var(--hover-color) 50%, var(--card-background));
+    }
+    
+    .en {
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      font-weight: 500;
+      padding-left: 1.5rem;
+      position: relative;
+      
+      &::before {
+        content: '"';
+        position: absolute;
+        left: 0;
+        color: var(--accent-success);
+        font-size: 2rem;
+        font-family: serif;
+        line-height: 1;
+      }
+    }
+    
+    .cn {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--hover-color);
+      margin-left: 1.5rem;
     }
   }
 }
@@ -1351,5 +1465,82 @@ const deleteBook = async (book: typeof bookList[0]) => {
 
 .slide-right-leave-to {
   transform: translateX(100%);
+}
+
+// 添加进度指示器
+.progress-indicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: var(--card-background);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--hover-color);
+    transition: all 0.3s ease;
+    
+    &.active {
+      background-color: var(--primary-color);
+      transform: scale(1.2);
+    }
+  }
+}
+
+// 添加呼吸动画
+@keyframes breathe {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+// 添加加载动画
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  
+  &::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--hover-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .word-container {
+    max-width: 100%;
+  }
+  
+  .word {
+    font-size: 2rem;
+  }
+  
+  .word-section {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
 }
 </style> 

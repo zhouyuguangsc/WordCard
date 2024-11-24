@@ -62,7 +62,7 @@ interface WordContent {
   trans: Translation[]
 }
 
-interface Word {
+export interface Word {
   wordRank: number
   headWord: string
   content: {

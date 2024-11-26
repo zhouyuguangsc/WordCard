@@ -966,7 +966,7 @@ const calculateFontSize = (word: string) => {
   position: absolute;
   right: calc(100% + 0.5rem);
   top: 0;
-  width: 350px;
+  width: 325px;
   max-height: 85vh;
   background-color: var(--card-background);
   border-radius: 1rem;
@@ -986,7 +986,7 @@ const calculateFontSize = (word: string) => {
 
 .tab-buttons {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.2rem;
   background-color: var(--background-color);
   border-radius: 0.75rem;
   padding: 0.25rem;
